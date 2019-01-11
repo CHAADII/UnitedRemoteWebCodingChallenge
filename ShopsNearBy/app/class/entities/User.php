@@ -24,22 +24,20 @@ class User
     public function saveMe()
     {
         MysqlSing::getInstance();
-        var_dump($this);
         try {
             $stm=MysqlSing::$con->prepare("INSERT INTO `user`(`Email`, `password`, `Location`) VALUES (?,?,?)");
-            $stm->execute([$this->Email,$this->password,$this->Location]);
+            $stm->execute([$this->Email,$this->password,$this->lat.",".$this->lon]);
             return true;
-        }catch(PDOException $e)
-        {
-            //echo $e->getCode()." ".$e->getMessage();
+        }
+        catch (Exception $e){
             if (_VERBOSE)
                 throw new PDOException("Error while signing up , ".$e->getMessage(),$e->getCode());
-            if ($e->getCode() == 1062 || $e->getCode() == 23000) {
-                return "Duplicate";
-            }else
-                return false;
-        }
 
+            if ($e->getCode() === 1062 || $e->getCode() === 23000) {
+                return "Duplicate";
+            }
+            return false;
+        }
     }
 
     public function updateLocation($location)
