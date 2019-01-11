@@ -115,6 +115,8 @@ switch($request)
             if ($s->__get("CSRF") != $params[0])
                 die("false");
 
+            if(strpos($params[1], 'null') === false)
+                die('false');
             $s->__get("User")->updateLocation($params[1]);
             die("true");
             break;

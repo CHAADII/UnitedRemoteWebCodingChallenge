@@ -41,7 +41,7 @@ class shopsController
         MysqlSing::getInstance();
         try {
             $stm = MysqlSing::$con->prepare("INSERT INTO `DislikedShops`(`Email`, `Id`, `Date`) VALUES (?,?,?)");
-            $stm->execute([$email, $id,date("Y-m-d h:i:s")]);
+            $stm->execute([$email, $id, date("Y-m-d h:i:s")]);
         } catch (PDOException $e) {
             if (_VERBOSE)
                 throw new PDOException("Error in likeshop() , " . $e->getMessage(), $e->getCode());
@@ -61,16 +61,17 @@ class shopsController
     }
 
     //Get All shops in DB
-    public static function getAllShops($notLiked = true)
+    public static function getAllShops($email, $notLiked = true)
     {
         MysqlSing::getInstance();
         try {
-            if ($notLiked)
-                $stm = MysqlSing::$con->prepare("SELECT * FROM `Shop` WHERE Shop.Id not in (SELECT likedShops.Id from `likedShops`) and Shop.Id not in (SELECT DislikedShops.Id from DislikedShops where (unix_timestamp(?) - unix_timestamp(DislikedShops.Date)) < 7200 ) ");
-            else
-                $stm = MysqlSing::$con->prepare("SELECT * FROM `Shop` where Shop.Id not in (SELECT DislikedShops.Id from DislikedShops where (unix_timestamp(?) - unix_timestamp(DislikedShops.Date)) < 7200)");
-
-            $stm->execute([date("Y-m-d h:i:s")]);
+            if ($notLiked) {
+                $stm = MysqlSing::$con->prepare("SELECT * FROM `Shop` WHERE Shop.Id not in (SELECT likedShops.Id from `likedShops` where likedShops.Email=?) and Shop.Id not in (SELECT DislikedShops.Id from DislikedShops where (unix_timestamp(?) - unix_timestamp(DislikedShops.Date)) < 7200 and DislikedShops.Email=? ) ");
+                $stm->execute([$email, date("Y-m-d h:i:s"), $email]);
+            } else {
+                $stm = MysqlSing::$con->prepare("SELECT * FROM `Shop` where Shop.Id not in (SELECT DislikedShops.Id from DislikedShops where (unix_timestamp(?) - unix_timestamp(DislikedShops.Date)) < 7200 and DislikedShops.Email=?)");
+                $stm->execute([date("Y-m-d h:i:s"), $email]);
+            }
         } catch (PDOException $e) {
             if (_VERBOSE)
                 throw new PDOException("Error in GETALLSHOPS() , " . $e->getMessage(), $e->getCode());

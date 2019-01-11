@@ -23,11 +23,11 @@ $user = $s->__get("User");
 $t = "";
 $icon = "check";
 if (isset($_GET["acc"])) {
-    shopsController::getAllShops(false);
+    shopsController::getAllShops($user->getEmail(),false);
     $t = "change";
     $icon = "window-close";
 } else {
-    shopsController::getAllShops();
+    shopsController::getAllShops($user->getEmail());
 }
 
 $SortedShops = shopsController::sortShops($user->getLat(), $user->getLon());
