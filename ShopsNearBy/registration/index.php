@@ -50,7 +50,7 @@ if($msg !="")
 ?>
 <html>
 <head>
-    <title>ART COFFEE-Registration</title>
+    <title>SHOPS - Registration</title>
     <script src="<?=$_paths['assets']?>js/registration.js"></script>
     <?php require "../prefabs/head.php"; ?>
     <style>
