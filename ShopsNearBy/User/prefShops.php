@@ -32,7 +32,8 @@ if(count($SortedShops)==0)
 <div class="col-md-12 " id="errorlog">
 
 </div>
-
+<div class="col-md-12">
+<div class="row">
 <?php foreach ($SortedShops as $shop){?>
     <div class="col-md-4">
         <div class="card text-white bg-primary mb-3">
@@ -53,5 +54,11 @@ if(count($SortedShops)==0)
             </div>
         </div>
     </div>
-
 <?php }?>
+</div>
+</div>
+
+
+
+
+
