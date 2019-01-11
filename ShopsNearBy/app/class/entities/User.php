@@ -33,7 +33,7 @@ class User
             if (_VERBOSE)
                 throw new PDOException("Error while signing up , ".$e->getMessage(),$e->getCode());
 
-            if ($e->getCode() == 1062 || $e->getCode() == 23000) {
+            if ($e->getCode() === 1062 || $e->getCode() === 23000) {
                 return "Duplicate";
             }
             return false;
