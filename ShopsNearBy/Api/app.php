@@ -34,7 +34,7 @@ switch($request)
 
             $us=new User($user);
             $res=$us->saveMe();
-            if($res ==true)
+            if($res ===true)
             {
                         global $s;
                         $s=Session::getInstance();
@@ -42,7 +42,7 @@ switch($request)
                         $s->__set("User",$us);
                         $s->__set("CSRF",Session::newCSRF());
                         header("location:../");
-            }elseif ($res == "Duplicate")
+            }elseif ($res === "Duplicate")
             {
                 header("location: ../registration/index.php?r=duplicate");
                     break;
