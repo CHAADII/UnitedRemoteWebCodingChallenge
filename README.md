@@ -2,7 +2,7 @@
 
 #### hello I'm Bentaleb Chadi, and this is my modest small app that im participing with it in your Web coding Challenge
 ## Functional spec : 
-##### all the functional (basics + bonus) are implemented in this app
+##### all the functionalities (Essentials + Bonus) are implemented
 ## requirements : 
 ##### Mysql database : make sure you import the .sql file to your Mysql server.
 ##### Php : php 5 or newer version
